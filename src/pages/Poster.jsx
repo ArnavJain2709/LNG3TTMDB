@@ -1,4 +1,5 @@
 import { createSignal, onMount } from "solid-js";
+import { useNavigate } from "@solidjs/router";
 import {
   Tile,
   Badge,
@@ -8,11 +9,11 @@ import {
   Column,
 } from "@lightningjs/solid-ui";
 import { fetchMovies, fetchTvShows } from "../api/functions";
-import { withPadding } from "@lightningtv/solid-ui";
 
 const Poster = () => {
   const [movieCollection, setMovieCollection] = createSignal([]);
   const [showCollection, setShowCollection] = createSignal([]);
+  const navigate = useNavigate(); // Hook to access navigation functionality
 
   const RowStyles = {
     display: "flex",
@@ -45,6 +46,11 @@ const Poster = () => {
     }
   });
 
+  const handleTileClick = (details, type) => {
+    // Pass the details and type via state in navigation
+    navigate(`/details/${type}`, { state: { details } });
+  };
+
   return (
     <>
       <Column style={ColumnStyles}>
@@ -75,6 +81,7 @@ const Poster = () => {
               topLeft={<Badge title="HD" tone="brand" />}
               topRight={<Label width={75} title="Label" mountX={0.5} />}
               inset={<Metadata title={aMovie.title} tone="brand" />}
+              onEnter={() => handleTileClick(aMovie, "movie")} // Pass data on click
             />
           ))}
         </Row>
@@ -106,6 +113,7 @@ const Poster = () => {
               topLeft={<Badge title="HD" tone="brand" />}
               topRight={<Label width={75} title="Label" mountX={0.5} />}
               inset={<Metadata title={aShow.title} tone="brand" />}
+              onEnter={() => handleTileClick(aShow, "show")} // Pass data on click
             />
           ))}
         </Row>
