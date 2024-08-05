@@ -10,6 +10,7 @@ const App = (props) => {
     Counter: "c",
     Poster: "p",
     Buttons: "b",
+    Search: "s",
     Escape: ["Escape", 27],
     Backspace: ["Backspace", 8],
     Left: ["ArrowLeft", 37],
@@ -32,10 +33,11 @@ const App = (props) => {
       onText={() => navigate("/text")}
       onCounter={() => navigate("/counter")}
       onPoster={() => navigate("/poster")}
+      onSearch={() => navigate("/search")}
       onButtons={() => navigate("/buttons")}
       onMenu={() => navigate("/")}
     >
-      <View color={0x071423ff} />
+      <View color="white" />
       {props.children}
     </View>
   );
