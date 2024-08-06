@@ -37,7 +37,7 @@ const App = (props) => {
       onButtons={() => navigate("/buttons")}
       onMenu={() => navigate("/")}
     >
-      <View color="white" />
+      <View color="0x071423ff" />
       {props.children}
     </View>
   );

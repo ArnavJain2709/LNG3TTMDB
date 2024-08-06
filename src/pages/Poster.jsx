@@ -7,7 +7,9 @@ import {
   Metadata,
   Row,
   Column,
+  tileStyles,
 } from "@lightningjs/solid-ui";
+import { Text } from "@lightningtv/solid";
 import { fetchMovies, fetchTvShows } from "../api/functions";
 
 const Poster = () => {
@@ -18,12 +20,17 @@ const Poster = () => {
   const RowStyles = {
     display: "flex",
     justifyContent: "flexStart",
-    width: 1500,
+    width: 1900,
     height: 500,
     color: "00000000",
     gap: 26,
     y: 0, // Center rows vertically
     x: 0, // Adjust x as needed
+  };
+
+  const TileStyles = {
+    display: "flex-item",
+    marginLeft: 30,
   };
 
   const ColumnStyles = {
@@ -46,9 +53,9 @@ const Poster = () => {
     }
   });
 
-  const handleTileClick = (details, type) => {
-    // Pass the details and type via state in navigation
-    navigate(`/details/${type}`, { state: { details } });
+  const handleTileClick = (item, type) => {
+    console.log("Tile clicked:", item, type);
+    navigate("/details", { state: { item, type } });
   };
 
   return (
@@ -57,6 +64,11 @@ const Poster = () => {
         <Row style={RowStyles}>
           {movieCollection().map((aMovie) => (
             <Tile
+              style={TileStyles}
+              transition={{
+                x: true,
+                scale: { duration: 1500, easing: "ease-in-out" },
+              }}
               autofocus
               states="focus"
               width={270}
@@ -85,11 +97,16 @@ const Poster = () => {
             />
           ))}
         </Row>
-
+        <Text skipFocus>Recommendations</Text>
         <Row style={{ ...RowStyles, marginTop: 10 }}>
           {showCollection().map((aShow) => (
             <Tile
-              autofocus
+              //autofocus
+              style={TileStyles}
+              transition={{
+                x: true,
+                scale: { duration: 1500, easing: "ease-in-out" },
+              }}
               states="focus"
               width={270}
               height={400}
@@ -116,6 +133,7 @@ const Poster = () => {
               onEnter={() => handleTileClick(aShow, "show")} // Pass data on click
             />
           ))}
+          {console.log("testing")}
         </Row>
       </Column>
     </>

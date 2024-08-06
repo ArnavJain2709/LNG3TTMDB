@@ -22,6 +22,7 @@
     "@lightningjs/solid": "^0.15.15",
     "@lightningjs/solid-primitives": "^0.6.6",
     "@lightningjs/solid-ui": "^0.13.1",
+    "@lightningtv/solid": "^1.4.10",
     "@lightningtv/solid-ui": "^0.21.2",
     "@solidjs/router": "^0.13.2",
     "@storybook/test": "^8.0.9",

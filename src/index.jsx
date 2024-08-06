@@ -6,7 +6,7 @@ import TextPage from "./pages/Text";
 import ButtonsPage from "./pages/ButtonsPage";
 import CounterPage from "./pages/Counter";
 import Poster from "./pages/Poster";
-import DetailsPage from "./pages/DetailsPage";
+import Details from "./pages/Details";
 import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 
@@ -14,7 +14,7 @@ import coreExtensionModuleUrl from "./AppCoreExtensions.js?importChunkUrl";
 
 Config.debug = true;
 Config.fontSettings.fontFamily = "Ubuntu";
-Config.fontSettings.color = 0xff33ffff;
+Config.fontSettings.color = 0xffffffff;
 Config.rendererOptions = {
   coreExtensionModule: coreExtensionModuleUrl,
   numImageWorkers: 2,
@@ -31,7 +31,7 @@ render(() => (
     <Route path="/" component={HelloWorld} />
     <Route path="/counter" component={CounterPage} />
     <Route path="/poster" component={Poster} />
-    <Route path="/details/:type" component={DetailsPage} />
+    <Route path="/details" component={Details} />
     <Route path="/search" component={Search} />
     <Route path="/text" component={TextPage} />
     <Route path="/buttons" component={ButtonsPage} />
