@@ -11,6 +11,7 @@ const App = (props) => {
     Poster: "p",
     Buttons: "b",
     Search: "s",
+
     Escape: ["Escape", 27],
     Backspace: ["Backspace", 8],
     Left: ["ArrowLeft", 37],

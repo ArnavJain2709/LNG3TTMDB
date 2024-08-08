@@ -1,4 +1,4 @@
-import { View, Text } from '@lightningjs/solid';
+import { View, Text } from "@lightningjs/solid";
 
 /**
  * Primary UI component for user interaction
@@ -6,8 +6,8 @@ import { View, Text } from '@lightningjs/solid';
 
 const styles = {
   container: {
-    width: 386,
-    height: 136,
+    width: 100,
+    height: 75,
     color: 0x000000ff,
     alpha: 0.3,
     borderRadius: 30,
@@ -20,32 +20,32 @@ const styles = {
       alpha: 1,
     },
     active: {
-      color: 0x33ff55ff
+      color: 0x33ff55ff,
     },
     disabled: {
       alpha: 1,
     },
-    transition: { 
-      color: { duration: 0.3 }, 
+    transition: {
+      color: { duration: 0.3 },
       scale: { duration: 0.3 },
-      alpha: {duration: 1500, delay: 200, timing: "easy-in"}
-    }
-  }
+      alpha: { duration: 1500, delay: 200, timing: "easy-in" },
+    },
+  },
 };
 
 styles.text = {
   fontSize: 32,
   lineHeight: styles.container.height,
-  contain: 'width',
-  textAlign: 'center',
-  mountY: -0.35,
-  color: 0xF6F6F9ff,
+  contain: "width",
+  textAlign: "center",
+  mountY: -0.5,
+  color: 0xf6f6f9ff,
   height: styles.container.height,
   width: styles.container.width,
   focus: {
-    fontSize: 64
-  }
-}
+    fontSize: 40,
+  },
+};
 
 export default function Button(props) {
   return (

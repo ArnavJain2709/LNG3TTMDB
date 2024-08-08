@@ -1,12 +1,22 @@
 import { useNavigate, useLocation } from "@solidjs/router";
 import { Button, Column, Row } from "@lightningjs/solid-ui";
-import { Text } from "@lightningtv/solid";
+import { Text } from "@lightningjs/solid";
 import { createEffect } from "solid-js";
 
 const Details = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { item, type } = location.state || {};
+
+  const DescriptionStyles = {
+    fontFamily: "Roboto",
+    fontWeight: 5,
+    lineHeight: 50,
+    width: 1500,
+    maxLines: 10,
+    contain: "width",
+    fontSize: 35, // Adjust this value to make the font smaller
+  };
 
   createEffect(() => {
     console.log("Details component rendered");
@@ -16,7 +26,7 @@ const Details = () => {
 
   const handleBackClick = () => {
     console.log("Back button clicked");
-    navigate("/");
+    navigate("/poster");
   };
 
   if (!item) {
@@ -34,17 +44,15 @@ const Details = () => {
         width: "100vw",
       }}
     >
-      <Button onEnter={handleBackClick}>Back to Poster</Button>
+      <Button autofocus onEnter={handleBackClick}>
+        Back to Poster
+      </Button>
+
       <Row style={{ gap: 20 }}>
         <Column style={{ gap: 10 }}>
-          <Text fontSize={24} fontWeight="bold" style={{ color: "white" }}>
-            {item.title || item.name}
-          </Text>
-          <Text style={{ color: "white" }}>Type: {type}</Text>
-          <Text style={{ color: "white" }}>
-            Vote Average: {item.vote_average}
-          </Text>
-          <Text style={{ color: "white" }}>Description: {item.overview}</Text>
+          <Text>{item.title || item.name}</Text>
+          <Text>Rating: {Math.round(item.vote_average * 10) / 10}</Text>
+          <Text style={DescriptionStyles}>{item.overview}</Text>
         </Column>
       </Row>
     </Column>

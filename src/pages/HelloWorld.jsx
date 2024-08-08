@@ -9,8 +9,9 @@ const HelloWorld = () => {
         Hello World!
       </Text>
       <Text style={styles.headlineSubText}>
-        M for here, C for Counter, P for Poster
+        M for here, C=Counter, P=Poster, K=Keyboard
         {/* <button>A button</button> */}
+        //{" "}
       </Text>
     </>
   );

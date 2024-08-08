@@ -9,8 +9,9 @@ import {
   Column,
   tileStyles,
 } from "@lightningjs/solid-ui";
-import { Text } from "@lightningtv/solid";
+import { Text } from "@lightningjs/solid";
 import { fetchMovies, fetchTvShows } from "../api/functions";
+import { Server } from "ws";
 
 const Poster = () => {
   const [movieCollection, setMovieCollection] = createSignal([]);
@@ -21,11 +22,12 @@ const Poster = () => {
     display: "flex",
     justifyContent: "flexStart",
     width: 1900,
-    height: 500,
+    height: 400,
     color: "00000000",
     gap: 26,
     y: 0, // Center rows vertically
     x: 0, // Adjust x as needed
+    //marginLeft: 30,
   };
 
   const TileStyles = {
@@ -36,10 +38,10 @@ const Poster = () => {
   const ColumnStyles = {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center", // Center horizontally
+    //alignItems: "center", // Center horizontally
     justifyContent: "center", // Center vertically
     height: "100vh", // Full viewport height to center vertically
-    gap: 20, // Space between rows
+    gap: 50, // Space between rows
   };
 
   onMount(async () => {
@@ -59,8 +61,11 @@ const Poster = () => {
   };
 
   return (
-    <>
+    <div>
       <Column style={ColumnStyles}>
+        <Text skipFocus style={{ fontSize: "50" }}>
+          Movies
+        </Text>
         <Row style={RowStyles}>
           {movieCollection().map((aMovie) => (
             <Tile
@@ -92,13 +97,15 @@ const Poster = () => {
               tone="brand"
               topLeft={<Badge title="HD" tone="brand" />}
               topRight={<Label width={75} title="Label" mountX={0.5} />}
-              inset={<Metadata title={aMovie.title} tone="brand" />}
+              //inset={<Metadata title={aMovie.title} tone="brand" />}
               onEnter={() => handleTileClick(aMovie, "movie")} // Pass data on click
             />
           ))}
         </Row>
-        <Text skipFocus>Recommendations</Text>
-        <Row style={{ ...RowStyles, marginTop: 10 }}>
+        <Text skipFocus style={{ fontSize: "50", marginLeft: "30px" }}>
+          TV shows
+        </Text>
+        <Row style={{ ...RowStyles, marginTop: "20px" }}>
           {showCollection().map((aShow) => (
             <Tile
               //autofocus
@@ -133,10 +140,9 @@ const Poster = () => {
               onEnter={() => handleTileClick(aShow, "show")} // Pass data on click
             />
           ))}
-          {console.log("testing")}
         </Row>
       </Column>
-    </>
+    </div>
   );
 };
 

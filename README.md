@@ -1,4 +1,4 @@
-# Lightning Starter Template for SolidJS
+# solidJS LightningJS 3 TMDB app
 
 ## Quick Start
 
@@ -8,4 +8,3 @@
 > npm i # or yarn or pnpm
 > npm start # or yarn or pnpm
 ```
-
