@@ -6,7 +6,7 @@ import { View, Text } from "@lightningjs/solid";
 
 const styles = {
   container: {
-    width: 100,
+    width: 1700,
     height: 75,
     color: 0xffffffff,
     alpha: 0.3,
@@ -26,9 +26,9 @@ const styles = {
       alpha: 1,
     },
     transition: {
-      color: { duration: 0.1 },
-      scale: { duration: 0.1 },
-      alpha: { duration: 1500, delay: 100, timing: "easy-in" },
+      color: { duration: 0.3 },
+      scale: { duration: 0.3 },
+      alpha: { duration: 1500, delay: 200, timing: "easy-in" },
     },
   },
 };
