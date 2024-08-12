@@ -96,7 +96,14 @@ const Poster = () => {
               progressBar={{ progress: 0.5 }}
               tone="brand"
               topLeft={<Badge title="HD" tone="brand" />}
-              topRight={<Label width={75} title="Label" mountX={0.5} />}
+              topRight={
+                <Label
+                  width={75}
+                  title={"⭐ " + Math.round(aMovie.vote_average / 2)}
+                  mountX={0.5}
+                  tone={"inverse"}
+                />
+              }
               //inset={<Metadata title={aMovie.title} tone="brand" />}
               onEnter={() => handleTileClick(aMovie, "movie")} // Pass data on click
             />
@@ -135,7 +142,14 @@ const Poster = () => {
               progressBar={{ progress: 0.5 }}
               tone="brand"
               topLeft={<Badge title="HD" tone="brand" />}
-              topRight={<Label width={75} title="Label" mountX={0.5} />}
+              topRight={
+                <Label
+                  width={75}
+                  title={"⭐ " + Math.round(aShow.vote_average / 2)}
+                  mountX={0.5}
+                  tone={"inverse"}
+                />
+              }
               inset={<Metadata title={aShow.title} tone="brand" />}
               onEnter={() => handleTileClick(aShow, "show")} // Pass data on click
             />

@@ -9,7 +9,7 @@ const styles = {
     width: 100,
     height: 75,
     color: 0xffffffff,
-    alpha: 0.3,
+    alpha: 0.7,
     borderRadius: 30,
     border: { width: 5, color: 0xcc33ffff },
     scale: 1,

@@ -6,10 +6,11 @@ import { View, Text } from "@lightningjs/solid";
 
 const styles = {
   container: {
-    width: 125,
+    width: 150,
+    mountX: -0.15,
     height: 75,
     color: 0xffffffff,
-    alpha: 0.3,
+    alpha: 0.7,
     borderRadius: 30,
     border: { width: 5, color: 0xcc33ffff },
     scale: 1,

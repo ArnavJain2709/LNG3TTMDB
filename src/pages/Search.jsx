@@ -1,17 +1,17 @@
 import { createSignal } from "solid-js";
-import { Text } from "@lightningjs/solid";
 import { Column, Row } from "@lightningjs/solid-ui";
 import Button from "../components/Button/Button";
 import SpaceBar from "../components/Button/SpaceBar";
 import SearchTextBox from "../components/Button/SearchTextBox";
 import DeleteButton from "../components/Button/DeleteButton";
+import { useNavigate } from "@solidjs/router";
 
 const ColumnStyles = {
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center", // Center vertically
-  height: "100vh", // Full viewport height to center vertically
-  gap: 10, // Space between rows
+  justifyContent: "center",
+  height: "100vh",
+  gap: 10,
 };
 
 const RowStyles = {
@@ -19,34 +19,22 @@ const RowStyles = {
   justifyContent: "center",
   width: 1900,
   height: 100,
-  color: "00000000",
   gap: 10,
-  y: 0, // Center rows vertically
-  x: 0, // Adjust x as needed
 };
 
-const TextBoxStyles = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontSize: 48,
-  padding: "10px 20px",
-  border: "2px solid #000",
-  borderRadius: "8px",
-  marginBottom: "20px",
-  minHeight: "60px",
-  width: "100%", // You can adjust this to fit the container
-  textAlign: "center",
-};
-
-const Search = () => {
+const Search = ({ onSearch }) => {
   const [typedText, setTypedText] = createSignal("");
+  const navigate = useNavigate();
 
   const handleEnter = (text) => {
     if (text === "SPACE") {
       setTypedText((prev) => prev + " ");
+    } else if (text === "Enter") {
+      console.log("Search Query enterred: ", typedText()); // Pass the typed text to the parent component
+      // navigate("/searchResults", { state: typedText() });
+      navigate("/searchResults", { state: { typedText: typedText() } });
     } else if (text === "DEL") {
-      setTypedText((prev) => prev.slice(0, -1)); // Remove the last character
+      setTypedText((prev) => prev.slice(0, -1));
     } else {
       setTypedText((prev) => prev + text);
     }
@@ -55,12 +43,10 @@ const Search = () => {
   return (
     <div>
       <Column style={ColumnStyles}>
-        {/* Textbox to display typed text */}
         <Row style={RowStyles}>
           <SearchTextBox style={{ width: 400 }}>{typedText()}</SearchTextBox>
         </Row>
-        {/* Keyboard layout */}
-        <Row autofocus style={RowStyles}>
+        <Row style={RowStyles}>
           <Button onEnter={() => handleEnter("1")}>1</Button>
           <Button onEnter={() => handleEnter("2")}>2</Button>
           <Button onEnter={() => handleEnter("3")}>3</Button>
@@ -73,7 +59,9 @@ const Search = () => {
           <Button onEnter={() => handleEnter("0")}>0</Button>
         </Row>
         <Row style={RowStyles}>
-          <Button onEnter={() => handleEnter("Q")}>Q</Button>
+          <Button autofocus onEnter={() => handleEnter("Q")}>
+            Q
+          </Button>
           <Button onEnter={() => handleEnter("W")}>W</Button>
           <Button onEnter={() => handleEnter("E")}>E</Button>
           <Button onEnter={() => handleEnter("R")}>R</Button>
@@ -94,6 +82,7 @@ const Search = () => {
           <Button onEnter={() => handleEnter("J")}>J</Button>
           <Button onEnter={() => handleEnter("K")}>K</Button>
           <Button onEnter={() => handleEnter("L")}>L</Button>
+          <Button onEnter={() => handleEnter("Enter")}>Enter</Button>
         </Row>
         <Row style={RowStyles}>
           <Button onEnter={() => handleEnter("Z")}>Z</Button>

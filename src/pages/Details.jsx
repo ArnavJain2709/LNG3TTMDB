@@ -37,11 +37,12 @@ const Details = () => {
   return (
     <Column
       style={{
+        display: "flex",
+        justifyContent: "center",
         padding: 20,
         gap: 20,
         backgroundColor: "#333",
         height: "100vh",
-        width: "100vw",
       }}
     >
       <Button autofocus onEnter={handleBackClick}>

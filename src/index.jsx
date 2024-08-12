@@ -8,6 +8,7 @@ import CounterPage from "./pages/Counter";
 import Poster from "./pages/Poster";
 import Details from "./pages/Details";
 import Search from "./pages/Search";
+import SearchResults from "./pages/SearchResults";
 import NotFound from "./pages/NotFound";
 
 import coreExtensionModuleUrl from "./AppCoreExtensions.js?importChunkUrl";
@@ -33,6 +34,7 @@ render(() => (
     <Route path="/poster" component={Poster} />
     <Route path="/details" component={Details} />
     <Route path="/search" component={Search} />
+    <Route path="/searchResults" component={SearchResults} />
     <Route path="/text" component={TextPage} />
     <Route path="/buttons" component={ButtonsPage} />
     <Route path="/*all" component={NotFound} />
