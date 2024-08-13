@@ -9,8 +9,8 @@ import {
   Column,
   tileStyles,
 } from "@lightningjs/solid-ui";
-import { Text } from "@lightningjs/solid";
-import { fetchMovies, fetchTvShows } from "../api/functions";
+import { Text, View } from "@lightningjs/solid";
+import { fetchMovies, fetchTvShows, getBackdropUrl } from "../api/functions";
 import { Server } from "ws";
 import Button from "../components/Button/Button";
 
@@ -18,6 +18,7 @@ const Poster = () => {
   const [movieCollection, setMovieCollection] = createSignal([]);
   const [showCollection, setShowCollection] = createSignal([]);
   const navigate = useNavigate(); // Hook to access navigation functionality
+  const [backdropPath, setBackdropPath] = createSignal(""); // Consistent naming
 
   const RowStyles = {
     display: "flex",
@@ -25,7 +26,7 @@ const Poster = () => {
     width: 1900,
     height: 400,
     color: "00000000",
-    gap: 26,
+    gap: 0,
     y: 0, // Center rows vertically
     x: 0, // Adjust x as needed
     //marginLeft: 30,
@@ -33,7 +34,7 @@ const Poster = () => {
 
   const TileStyles = {
     display: "flex-item",
-    marginLeft: 30,
+    //marginLeft: 30,
   };
 
   const ColumnStyles = {
@@ -42,6 +43,7 @@ const Poster = () => {
     //alignItems: "center", // Center horizontally
     justifyContent: "center", // Center vertically
     height: "100vh", // Full viewport height to center vertically
+    x: 25,
     gap: 50, // Space between rows
   };
 
@@ -61,8 +63,18 @@ const Poster = () => {
     navigate("/details", { state: { item, type } });
   };
 
+  const handleFocus = (backdropPath) => {
+    setBackdropPath(backdropPath);
+  };
+
   return (
-    <div>
+    <View
+      width="1920"
+      height="1080"
+      src={"https://image.tmdb.org/t/p/w1280/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg"} // Use the correct variable
+      colorTop="0xffffffff"
+      colorBottom="0x000000ff"
+    >
       {/* <Button autofocus>Back to Poster</Button> */}
       <Column style={ColumnStyles}>
         <Text skipFocus style={{ fontSize: "50" }}>
@@ -106,15 +118,16 @@ const Poster = () => {
                   tone={"inverse"}
                 />
               }
+              //onFocus={() => handleFocus(aMovie.backdrop_path)} // Update backdrop on focus
               //inset={<Metadata title={aMovie.title} tone="brand" />}
               onEnter={() => handleTileClick(aMovie, "movie")} // Pass data on click
             />
           ))}
         </Row>
-        <Text skipFocus style={{ fontSize: "50", marginLeft: "30px" }}>
+        <Text skipFocus style={{ fontSize: "50" }}>
           TV shows
         </Text>
-        <Row style={{ ...RowStyles, marginTop: "20px" }}>
+        <Row style={{ ...RowStyles, marginTop: "10px" }}>
           {showCollection().map((aShow) => (
             <Tile
               //autofocus
@@ -143,7 +156,6 @@ const Poster = () => {
               }}
               progressBar={{ progress: 0.5 }}
               tone="brand"
-              // topLeft={<Badge title="HD" tone="brand" />}
               topRight={
                 <Label
                   width={75}
@@ -154,11 +166,12 @@ const Poster = () => {
               }
               inset={<Metadata title={aShow.title} tone="brand" />}
               onEnter={() => handleTileClick(aShow, "show")} // Pass data on click
+              //onFocus={() => handleFocus(aShow.backdrop_path)} // Update backdrop on focus
             />
           ))}
         </Row>
       </Column>
-    </div>
+    </View>
   );
 };
 
