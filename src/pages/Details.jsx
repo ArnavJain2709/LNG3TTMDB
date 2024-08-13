@@ -10,7 +10,7 @@ import {
   tileStyles,
 } from "@lightningjs/solid-ui";
 import { Text } from "@lightningjs/solid";
-import { createEffect } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import { getBackdropUrl } from "../api/functions";
 import { View } from "@lightningjs/solid";
 import ButtonsPage from "./ButtonsPage";
@@ -19,6 +19,10 @@ const Details = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { item, type } = location.state || {};
+
+  // Signal to manage the visibility of ButtonsPage
+  const [isExpanded, setIsExpanded] = createSignal(false);
+  const [showHamburger, setShowHamburger] = createSignal(true);
 
   const DescriptionStyles = {
     fontFamily: "Lato",
@@ -30,15 +34,27 @@ const Details = () => {
     fontSize: 45, // Adjust this value to make the font smaller
   };
 
-  const TileStyles = {
-    display: "flex-item",
-    //marginLeft: 30,
-  };
-
   createEffect(() => {
     console.log("Details component rendered");
     console.log("Item:", item);
     console.log("Type:", type);
+
+    // Event listener for keyboard inputs
+    const handleKeyDown = (event) => {
+      if (event.key === "Backspace" || event.key === "ArrowLeft") {
+        setIsExpanded(true); // Expand ButtonsPage on backspace or left arrow key
+        setShowHamburger(false); // Hide hamburger icon when expanded
+      } else if (event.key === "ArrowRight") {
+        setIsExpanded(false); // Collapse ButtonsPage on right arrow key
+        setShowHamburger(true); // Show hamburger icon when collapsed
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   });
 
   const handleBackClick = () => {
@@ -66,9 +82,6 @@ const Details = () => {
         src={fullBackgroundImageUrl}
         colorTop="0x000000ff"
         colorBottom="0xffffffff"
-        color
-
-        //
       >
         <Row
           style={{
@@ -76,17 +89,28 @@ const Details = () => {
             width: 500,
           }}
         >
-          <ButtonsPage />
-          {/* <Button
-            autofocus
-            // style={{
-            //   width: 20,
-            // }}
-
-            onEnter={handleBackClick}
-          >
-            Back to Poster
-          </Button> */}
+          {isExpanded() ? (
+            <ButtonsPage />
+          ) : (
+            showHamburger() && (
+              <Button
+                onEnter={() => {
+                  setIsExpanded(true);
+                  setShowHamburger(false);
+                }}
+                style={{
+                  width: 50,
+                  height: 50,
+                  backgroundColor: "#444",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text>☰</Text> {/* Hamburger Icon */}
+              </Button>
+            )
+          )}
           <Column
             style={{
               display: "flex",
@@ -98,10 +122,6 @@ const Details = () => {
               width: 1800,
             }}
           >
-            {/* <Button autofocus onEnter={handleBackClick}>
-              Back to Poster
-            </Button> */}
-
             <Row style={{ gap: 20 }}>
               <Column style={{ gap: 20 }}>
                 <Text style={{ x: 30 }}>{item.title || item.name}</Text>
