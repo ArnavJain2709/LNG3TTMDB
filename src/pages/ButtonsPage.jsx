@@ -14,7 +14,8 @@ const ButtonsPage = () => {
     justifyContent: "center",
     width: 300,
     height: 1080,
-    color: "00000000",
+    // color: "00000000",
+    color: "0x071423ff",
     gap: 0,
     // y: 540,
     //x: 20,
@@ -30,27 +31,29 @@ const ButtonsPage = () => {
 
   return (
     <div>
-      <Column style={RowStyles}>
+      <Column style={{ ...RowStyles }}>
+        <Button
+          style={{
+            width: 300,
+            height: 80,
+            color: "0x071423ff",
+          }}
+          autofocus
+          onEnter={() => handleHomeEnter()}
+        >
+          Home
+        </Button>
         <Button
           style={{
             width: 300,
             height: 80,
             display: "flex",
             justifyContent: "center",
+            color: "0x071423ff",
           }}
-          autofocus
           onEnter={() => handleSearchEnter()}
         >
           <Text style={{ fontSize: 100 }}>Search</Text>
-        </Button>
-        <Button
-          style={{
-            width: 300,
-            height: 80,
-          }}
-          onEnter={() => handleHomeEnter()}
-        >
-          Home
         </Button>
       </Column>
     </div>

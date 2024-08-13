@@ -31,7 +31,7 @@ const Details = () => {
     width: 1300,
     maxLines: 10,
     contain: "width",
-    fontSize: 45, // Adjust this value to make the font smaller
+    fontSize: 45,
   };
 
   createEffect(() => {
@@ -83,34 +83,14 @@ const Details = () => {
         colorTop="0x000000ff"
         colorBottom="0xffffffff"
       >
-        <Row
+        <div
           style={{
-            display: "flex",
-            width: 500,
+            position: "relative", // Ensures child elements like ButtonsPage are positioned relative to this container
+            width: "100%",
+            height: "100%",
           }}
         >
-          {isExpanded() ? (
-            <ButtonsPage />
-          ) : (
-            showHamburger() && (
-              <Button
-                onEnter={() => {
-                  setIsExpanded(true);
-                  setShowHamburger(false);
-                }}
-                style={{
-                  width: 50,
-                  height: 50,
-                  backgroundColor: "#444",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text>☰</Text> {/* Hamburger Icon */}
-              </Button>
-            )
-          )}
+          {/* Main Content */}
           <Column
             style={{
               display: "flex",
@@ -119,7 +99,9 @@ const Details = () => {
               gap: 20,
               backgroundColor: "#333",
               height: "100vh",
-              width: 1800,
+              width: "100%",
+              x: 80,
+              zIndex: 1, // Content layer
             }}
           >
             <Row style={{ gap: 20 }}>
@@ -134,7 +116,49 @@ const Details = () => {
               </Column>
             </Row>
           </Column>
-        </Row>
+
+          {/* Overlaying ButtonsPage */}
+          {isExpanded() && (
+            <div
+              style={{
+                position: "absolute", // Overlay position
+                top: 0,
+                left: 0,
+                zIndex: 2, // Higher z-index to appear on top of the content
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.8)", // Optional: Darken the background for emphasis
+              }}
+            >
+              <ButtonsPage />
+            </div>
+          )}
+
+          {/* Hamburger Button */}
+          {!isExpanded() && showHamburger() && (
+            <Button
+              onEnter={() => {
+                setIsExpanded(true);
+                setShowHamburger(false);
+              }}
+              style={{
+                width: 100,
+                height: 100,
+                backgroundColor: "#444",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "absolute", // Positioned on top of the content
+                top: 10,
+                left: 10,
+                y: 540,
+                zIndex: 3, // Highest z-index to appear on top of everything
+              }}
+            >
+              <Text>☰</Text> {/* Hamburger Icon */}
+            </Button>
+          )}
+        </div>
       </View>
     </>
   );
