@@ -39,6 +39,7 @@ const App = (props) => {
       onMenu={() => navigate("/")}
     >
       <View color="0x071423ff" />
+      {/* <View /> */}
       {props.children}
     </View>
   );

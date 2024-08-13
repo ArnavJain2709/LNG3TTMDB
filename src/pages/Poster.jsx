@@ -12,6 +12,7 @@ import {
 import { Text } from "@lightningjs/solid";
 import { fetchMovies, fetchTvShows } from "../api/functions";
 import { Server } from "ws";
+import Button from "../components/Button/Button";
 
 const Poster = () => {
   const [movieCollection, setMovieCollection] = createSignal([]);
@@ -62,6 +63,7 @@ const Poster = () => {
 
   return (
     <div>
+      {/* <Button autofocus>Back to Poster</Button> */}
       <Column style={ColumnStyles}>
         <Text skipFocus style={{ fontSize: "50" }}>
           Movies
@@ -95,7 +97,7 @@ const Poster = () => {
               }}
               progressBar={{ progress: 0.5 }}
               tone="brand"
-              topLeft={<Badge title="HD" tone="brand" />}
+              //topLeft={<Badge title="HD" tone="brand" />}
               topRight={
                 <Label
                   width={75}
@@ -141,7 +143,7 @@ const Poster = () => {
               }}
               progressBar={{ progress: 0.5 }}
               tone="brand"
-              topLeft={<Badge title="HD" tone="brand" />}
+              // topLeft={<Badge title="HD" tone="brand" />}
               topRight={
                 <Label
                   width={75}

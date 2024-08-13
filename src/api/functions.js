@@ -91,3 +91,13 @@ export async function getCast(id, mediaType) {
     return [];
   }
 }
+
+export function getBackdropUrl(backdropPath) {
+  const size = "w1280";
+  const baseUrl = "https://image.tmdb.org/t/p/";
+  if (!backdropPath) {
+    console.log("No backdrop path provided");
+    return null; // Return null if no backdrop path is provided
+  }
+  return `${baseUrl}${size}${backdropPath}`;
+}

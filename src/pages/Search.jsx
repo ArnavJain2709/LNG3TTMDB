@@ -5,6 +5,8 @@ import SpaceBar from "../components/Button/SpaceBar";
 import SearchTextBox from "../components/Button/SearchTextBox";
 import DeleteButton from "../components/Button/DeleteButton";
 import { useNavigate } from "@solidjs/router";
+import { Text } from "@lightningjs/solid";
+import { useFocusManager, useAnnouncer } from "@lightningjs/solid-primitives";
 
 const ColumnStyles = {
   display: "flex",
@@ -43,10 +45,11 @@ const Search = ({ onSearch }) => {
   return (
     <div>
       <Column style={ColumnStyles}>
+        {/* <Text>Search:</Text> */}
         <Row style={RowStyles}>
           <SearchTextBox style={{ width: 400 }}>{typedText()}</SearchTextBox>
         </Row>
-        <Row style={RowStyles}>
+        <Row autofocus style={RowStyles}>
           <Button onEnter={() => handleEnter("1")}>1</Button>
           <Button onEnter={() => handleEnter("2")}>2</Button>
           <Button onEnter={() => handleEnter("3")}>3</Button>
@@ -59,9 +62,7 @@ const Search = ({ onSearch }) => {
           <Button onEnter={() => handleEnter("0")}>0</Button>
         </Row>
         <Row style={RowStyles}>
-          <Button autofocus onEnter={() => handleEnter("Q")}>
-            Q
-          </Button>
+          <Button onEnter={() => handleEnter("Q")}>Q</Button>
           <Button onEnter={() => handleEnter("W")}>W</Button>
           <Button onEnter={() => handleEnter("E")}>E</Button>
           <Button onEnter={() => handleEnter("R")}>R</Button>
