@@ -13,6 +13,7 @@ import { Text, View } from "@lightningjs/solid";
 import { fetchMovies, fetchTvShows, getBackdropUrl } from "../api/functions";
 import { Server } from "ws";
 import Button from "../components/Button/Button";
+import ButtonsPage from "./ButtonsPage";
 
 const Poster = () => {
   const [movieCollection, setMovieCollection] = createSignal([]);

@@ -1,9 +1,19 @@
 import { useNavigate, useLocation } from "@solidjs/router";
-import { Button, Column, Row } from "@lightningjs/solid-ui";
+import {
+  Button,
+  Column,
+  Row,
+  Tile,
+  Badge,
+  Label,
+  Metadata,
+  tileStyles,
+} from "@lightningjs/solid-ui";
 import { Text } from "@lightningjs/solid";
 import { createEffect } from "solid-js";
 import { getBackdropUrl } from "../api/functions";
 import { View } from "@lightningjs/solid";
+import ButtonsPage from "./ButtonsPage";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -11,13 +21,18 @@ const Details = () => {
   const { item, type } = location.state || {};
 
   const DescriptionStyles = {
-    fontFamily: "Roboto",
-    fontWeight: 5,
+    fontFamily: "Lato",
+    fontWeight: 10,
     lineHeight: 50,
-    width: 1500,
+    width: 1300,
     maxLines: 10,
     contain: "width",
-    fontSize: 35, // Adjust this value to make the font smaller
+    fontSize: 45, // Adjust this value to make the font smaller
+  };
+
+  const TileStyles = {
+    display: "flex-item",
+    //marginLeft: 30,
   };
 
   createEffect(() => {
@@ -49,32 +64,57 @@ const Details = () => {
         width="1920"
         height="1080"
         src={fullBackgroundImageUrl}
-        colorTop="0xffffffff"
-        colorBottom="0x000000ff"
+        colorTop="0x000000ff"
+        colorBottom="0xffffffff"
+        color
+
+        //
       >
-        <Column
+        <Row
           style={{
             display: "flex",
-            justifyContent: "center",
-            padding: 20,
-            gap: 20,
-            backgroundColor: "#333",
-            height: "100vh",
-            width: "100vw",
+            width: 500,
           }}
         >
-          <Button autofocus onEnter={handleBackClick}>
-            Back to Poster
-          </Button>
+          <ButtonsPage />
+          {/* <Button
+            autofocus
+            // style={{
+            //   width: 20,
+            // }}
 
-          <Row style={{ gap: 20 }}>
-            <Column style={{ gap: 10 }}>
-              <Text>{item.title || item.name}</Text>
-              <Text>Rating: {Math.round(item.vote_average * 10) / 10}</Text>
-              <Text style={DescriptionStyles}>{item.overview}</Text>
-            </Column>
-          </Row>
-        </Column>
+            onEnter={handleBackClick}
+          >
+            Back to Poster
+          </Button> */}
+          <Column
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              padding: 20,
+              gap: 20,
+              backgroundColor: "#333",
+              height: "100vh",
+              width: 1800,
+            }}
+          >
+            {/* <Button autofocus onEnter={handleBackClick}>
+              Back to Poster
+            </Button> */}
+
+            <Row style={{ gap: 20 }}>
+              <Column style={{ gap: 20 }}>
+                <Text style={{ x: 30 }}>{item.title || item.name}</Text>
+                <Text style={{ x: 30, fontSize: 35 }}>
+                  Rating: {Math.round(item.vote_average * 10) / 10}
+                </Text>
+                <Text style={{ ...DescriptionStyles, x: 30 }}>
+                  {item.overview}
+                </Text>
+              </Column>
+            </Row>
+          </Column>
+        </Row>
       </View>
     </>
   );
