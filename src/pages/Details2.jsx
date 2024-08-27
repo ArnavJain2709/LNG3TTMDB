@@ -10,7 +10,7 @@ import {
   getBackdropUrl,
 } from "../api/functions";
 
-const Details = () => {
+const Details2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { item, type } = location.state || {};
@@ -57,7 +57,7 @@ const Details = () => {
 
   const handleTileClick = (item, type) => {
     console.log("Tile clicked:", item, type);
-    navigate("/details2", { state: { item, type } });
+    navigate("/details", { state: { item, type } });
   };
 
   if (!item) {
@@ -202,4 +202,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default Details2;

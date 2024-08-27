@@ -1,5 +1,5 @@
 import { createSignal, onMount, createEffect, on } from "solid-js";
-import { useNavigate } from "@solidjs/router";
+import { useNavigate, useLocation } from "@solidjs/router";
 import {
   Tile,
   Badge,
@@ -23,13 +23,12 @@ import {
   fetchTrending,
 } from "../api/functions";
 
-const Poster = () => {
+const TV = () => {
   const [movieCollection, setMovieCollection] = createSignal([]);
-  const [showCollection, setShowCollection] = createSignal([]);
+  //const [showCollection, setShowCollection] = createSignal([]);
   const navigate = useNavigate();
   const [backdropPath, setBackdropPath] = createSignal("");
   const [activePoster, setActivePoster] = createSignal({
-    title: "No title",
     name: "No title",
     original_name: "No title",
     poster_path: "",
@@ -80,23 +79,12 @@ const Poster = () => {
     gap: 50,
   };
 
-  const getDisplayName = () => {
-    if (activePoster().original_name) {
-      return activePoster().original_name;
-    } else if (activePoster().name) {
-      return activePoster().name;
-    } else if (activePoster().title) {
-      return activePoster().title;
-    } else {
-      return "No title";
-    }
-  };
-
   onMount(async () => {
-    const movies = await fetchTrending();
+    const movies = await fetchTvShows();
     //const shows = await fetchTvShows();
     if (movies.length > 0) {
       setMovieCollection(movies);
+      console.log("TV Shows data:", movies);
     }
 
     movieCollection().forEach((movie) => {
@@ -115,6 +103,11 @@ const Poster = () => {
     navigate("/details", { state: { item, type } });
   };
 
+  const getDisplayName = () => {
+    const originalName = activePoster().original_name;
+    return originalName ? originalName : activePoster().name || "No title";
+  };
+
   return (
     <View
       width="1920"
@@ -124,7 +117,7 @@ const Poster = () => {
       colorBottom="0xffffffff"
     >
       <Column style={ColumnStyles}>
-        <Row style={{ RowStyles, gap: 20, height: 80 }}>
+        <Row style={{ gap: 20, height: 80 }}>
           <Button
             style={{
               width: 300,
@@ -178,7 +171,7 @@ const Poster = () => {
           {activePoster().overview}
         </Text>
         <Text skipFocus style={{ fontWeight: 10, fontSize: "50" }}>
-          Trending
+          TV Shows
         </Text>
         <Row style={RowStyles} autofocus forwardFocus={0}>
           {movieCollection().map((aMovie, index) => (
@@ -215,7 +208,7 @@ const Poster = () => {
                   tone={"inverse"}
                 />
               }
-              onEnter={() => handleTileClick(aMovie, aMovie.media_type)}
+              onEnter={() => handleTileClick(aMovie, "tv")}
               onLeft={() => {
                 if (counter > 0) {
                   counter--;
@@ -227,6 +220,7 @@ const Poster = () => {
                 if (counter < movieCollection().length - 1) {
                   counter++;
                   setActivePoster(movieCollection()[counter]);
+                  // console.log("Active Poster:", activePoster().original_name);
                   setBackdropPath(imageLinks[counter]);
                 }
               }}
@@ -238,4 +232,4 @@ const Poster = () => {
   );
 };
 
-export default Poster;
+export default TV;

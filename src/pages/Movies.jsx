@@ -1,5 +1,5 @@
 import { createSignal, onMount, createEffect, on } from "solid-js";
-import { useNavigate } from "@solidjs/router";
+import { useNavigate, useLocation } from "@solidjs/router";
 import {
   Tile,
   Badge,
@@ -23,15 +23,13 @@ import {
   fetchTrending,
 } from "../api/functions";
 
-const Poster = () => {
+const Movies = () => {
   const [movieCollection, setMovieCollection] = createSignal([]);
   const [showCollection, setShowCollection] = createSignal([]);
   const navigate = useNavigate();
   const [backdropPath, setBackdropPath] = createSignal("");
   const [activePoster, setActivePoster] = createSignal({
     title: "No title",
-    name: "No title",
-    original_name: "No title",
     poster_path: "",
     vote_average: 0,
     overview: "No overview",
@@ -74,26 +72,14 @@ const Poster = () => {
   const ColumnStyles = {
     display: "flex",
     flexDirection: "column",
-    //justifyContent: "center",
+    // justifyContent: "center",
     height: "100vh",
     x: 25,
     gap: 50,
   };
 
-  const getDisplayName = () => {
-    if (activePoster().original_name) {
-      return activePoster().original_name;
-    } else if (activePoster().name) {
-      return activePoster().name;
-    } else if (activePoster().title) {
-      return activePoster().title;
-    } else {
-      return "No title";
-    }
-  };
-
   onMount(async () => {
-    const movies = await fetchTrending();
+    const movies = await fetchMovies();
     //const shows = await fetchTvShows();
     if (movies.length > 0) {
       setMovieCollection(movies);
@@ -124,7 +110,7 @@ const Poster = () => {
       colorBottom="0xffffffff"
     >
       <Column style={ColumnStyles}>
-        <Row style={{ RowStyles, gap: 20, height: 80 }}>
+        <Row style={{ gap: 20, height: 80, y: 0, x: 0 }}>
           <Button
             style={{
               width: 300,
@@ -172,15 +158,16 @@ const Poster = () => {
           </Button>
         </Row>
         <Text skipFocus style={{ fontWeight: 10, fontSize: "80" }}>
-          {getDisplayName()}
+          {activePoster().title}
         </Text>
         <Text skipFocus style={{ ...DescriptionStyles, x: 30 }}>
           {activePoster().overview}
         </Text>
         <Text skipFocus style={{ fontWeight: 10, fontSize: "50" }}>
-          Trending
+          Movies
         </Text>
-        <Row style={RowStyles} autofocus forwardFocus={0}>
+        {/* <Row style={RowStyles} autofocus forwardFocus={0}> */}
+        <Row style={RowStyles} autofocus>
           {movieCollection().map((aMovie, index) => (
             <Tile
               style={TileStyles}
@@ -215,7 +202,7 @@ const Poster = () => {
                   tone={"inverse"}
                 />
               }
-              onEnter={() => handleTileClick(aMovie, aMovie.media_type)}
+              onEnter={() => handleTileClick(aMovie, "movie")}
               onLeft={() => {
                 if (counter > 0) {
                   counter--;
@@ -238,4 +225,4 @@ const Poster = () => {
   );
 };
 
-export default Poster;
+export default Movies;

@@ -11,7 +11,7 @@ const styles = {
     color: 0xffffffff,
     alpha: 0.7,
     borderRadius: 30,
-    border: { width: 5, color: 0xcc33ffff },
+    border: { width: 0 },
     scale: 1,
     focus: {
       color: 0x58807dff,

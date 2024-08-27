@@ -1,3 +1,91 @@
+export async function fetchCastWithImages(id, mediaType) {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/${mediaType}/${id}/credits?api_key=647a0da34d4e88de809e8522efed4baf`
+    );
+    if (!response.ok) {
+      throw new Error(`Failed to fetch cast for ${mediaType} with ID ${id}`);
+    }
+    const data = await response.json();
+    const cast = data.cast || [];
+
+    // Filter out cast members without a profile path and limit to a maximum of 10 cast members
+    const castWithImages = cast
+      .filter((member) => member.profile_path)
+      .slice(0, 10);
+
+    // Map each cast member to include the full image URL
+    return castWithImages.map((member) => ({
+      ...member,
+      profile_image: `https://image.tmdb.org/t/p/w500${member.profile_path}`,
+    }));
+  } catch (error) {
+    console.error(
+      `Error fetching cast with images for ${mediaType} with ID ${id}:`,
+      error
+    );
+    return [];
+  }
+}
+
+export async function fetchRecommendations(id, mediaType) {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/${mediaType}/${id}/recommendations?api_key=647a0da34d4e88de809e8522efed4baf`
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch recommendations for ${mediaType} with ID ${id}`
+      );
+    }
+    const data = await response.json();
+    return data.results || [];
+  } catch (error) {
+    console.error(
+      `Error fetching recommendations for ${mediaType} with ID ${id}:`,
+      error
+    );
+    return [];
+  }
+}
+
+export async function fetchTrending() {
+  try {
+    // Fetch trending movies
+    const trendingMoviesResponse = await fetch(
+      "https://api.themoviedb.org/3/trending/movie/day?api_key=647a0da34d4e88de809e8522efed4baf"
+    );
+    if (!trendingMoviesResponse.ok) {
+      throw new Error("Failed to fetch trending movies");
+    }
+    const trendingMoviesData = await trendingMoviesResponse.json();
+    const trendingMovies = trendingMoviesData.results || [];
+
+    // Fetch trending TV shows
+    const trendingShowsResponse = await fetch(
+      "https://api.themoviedb.org/3/trending/tv/day?api_key=647a0da34d4e88de809e8522efed4baf"
+    );
+    if (!trendingShowsResponse.ok) {
+      throw new Error("Failed to fetch trending TV shows");
+    }
+    const trendingShowsData = await trendingShowsResponse.json();
+    const trendingShows = trendingShowsData.results || [];
+
+    // Combine the results from movies and TV shows
+    const combinedTrending = [...trendingMovies, ...trendingShows];
+
+    // Sort the combined array by popularity in ascending order
+    const sortedTrending = combinedTrending.sort(
+      (a, b) => a.vote_average - b.vote_average
+    );
+
+    return sortedTrending;
+  } catch (error) {
+    console.error("Error fetching trending movies and shows:", error);
+    return [];
+  }
+}
+
 export async function fetchMovies() {
   try {
     const response = await fetch(

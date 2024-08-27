@@ -11,6 +11,7 @@ const App = (props) => {
     Poster: "p",
     Buttons: "b",
     Search: "s",
+    HelloWorld: "h",
 
     Escape: ["Escape", 27],
     Backspace: ["Backspace", 8],
@@ -35,6 +36,7 @@ const App = (props) => {
       onCounter={() => navigate("/counter")}
       onPoster={() => navigate("/poster")}
       onSearch={() => navigate("/search")}
+      onHelloWorld={() => navigate("/hello")}
       onButtons={() => navigate("/buttons")}
       onMenu={() => navigate("/")}
     >
