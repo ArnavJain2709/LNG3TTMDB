@@ -75,11 +75,11 @@ export async function fetchTrending() {
     const combinedTrending = [...trendingMovies, ...trendingShows];
 
     // Sort the combined array by popularity in ascending order
-    const sortedTrending = combinedTrending.sort(
-      (a, b) => a.vote_average - b.vote_average
-    );
+    // const sortedTrending = combinedTrending.sort(
+    //   (a, b) => a.vote_average - b.vote_average
+    // );
 
-    return sortedTrending;
+    return combinedTrending;
   } catch (error) {
     console.error("Error fetching trending movies and shows:", error);
     return [];

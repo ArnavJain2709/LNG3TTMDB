@@ -111,11 +111,12 @@ const SearchResults = () => {
                 width: 300,
                 height: 80,
                 color: "0x071423ff",
+                marginLeft: 835,
                 // x: 700,
               }}
               onEnter={() => navigate("/search")}
             >
-              Search
+              <Text>🔍</Text>
             </Button>
           </Row>
           <Text skipFocus style={{ fontSize: "50" }}>
@@ -162,7 +163,7 @@ const SearchResults = () => {
                 onEnter={() =>
                   handleTileClick(
                     aResult,
-                    "movie"
+                    aResult.media_type === "movie" ? "movie" : "tv"
                     //aResult.media_type === "movie" ? "movie" : "tv"
                   )
                 } // Pass data on click

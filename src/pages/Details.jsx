@@ -39,6 +39,16 @@ const Details = () => {
 
   const TileStyles = {
     display: "flex-item",
+    // focus: {
+    //   // color: 0x58807dff,
+    //   scale: 1.1,
+    //   //borderWidth: 10,
+    //   // alpha: 1,
+    // },
+    // disabled: {
+    //   color: 0x333333ff,
+    //   scale: 1,
+    // },
   };
 
   onMount(async () => {
@@ -167,7 +177,7 @@ const Details = () => {
               <Text skipFocus style={{ fontSize: 40, fontWeight: 10 }}>
                 Recommendations:
               </Text>
-              <Row style={{ ...RowStyless }} autofocus forwardFocus={0}>
+              <Row style={{ ...RowStyless }}>
                 {movieCollection().map((aMovie) => (
                   <Tile
                     style={TileStyles}

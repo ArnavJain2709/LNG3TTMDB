@@ -147,14 +147,15 @@ const Movies = () => {
           </Button>
           <Button
             style={{
-              width: 300,
+              width: 100,
               height: 80,
               color: "0x071423ff",
+              marginLeft: 835,
               // x: 700,
             }}
             onEnter={() => navigate("/search")}
           >
-            Search
+            <Text style={{ fontSize: 80 }}>🔍</Text>
           </Button>
         </Row>
         <Text skipFocus style={{ fontWeight: 10, fontSize: "80" }}>

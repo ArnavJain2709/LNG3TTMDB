@@ -5,6 +5,7 @@ import SpaceBar from "../components/Button/SpaceBar";
 import SearchTextBox from "../components/Button/SearchTextBox";
 import DeleteButton from "../components/Button/DeleteButton";
 import { useNavigate, useLocation } from "@solidjs/router";
+import { Text } from "@lightningjs/solid";
 
 const ColumnStyles = {
   display: "flex",
@@ -83,17 +84,6 @@ const Search = ({ onSearch }) => {
               onEnter={() => navigate("/tv")}
             >
               TV
-            </Button>
-            <Button
-              style={{
-                width: 300,
-                height: 80,
-                color: "0x071423ff",
-                // x: 700,
-              }}
-              onEnter={() => navigate("/search")}
-            >
-              Search
             </Button>
           </Row>
         </Column>
