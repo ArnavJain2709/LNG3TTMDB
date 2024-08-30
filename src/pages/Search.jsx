@@ -4,16 +4,16 @@ import Letter from "../components/Button/Letter";
 import SpaceBar from "../components/Button/SpaceBar";
 import SearchTextBox from "../components/Button/SearchTextBox";
 import DeleteButton from "../components/Button/DeleteButton";
-import { useNavigate } from "@solidjs/router";
+import { useNavigate, useLocation } from "@solidjs/router";
 import { Text } from "@lightningjs/solid";
-import ButtonsPage from "./ButtonsPage";
 
 const ColumnStyles = {
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  //justifyContent: "center",
   height: "100vh",
   gap: 10,
+  x: 25,
 };
 
 const RowStyles = {
@@ -45,62 +45,49 @@ const Search = ({ onSearch }) => {
     }
   };
 
-  createEffect(() => {
-    const handleKeyDown = (event) => {
-      if (isExpanded()) {
-        const validButtonRefs = buttonRefs.filter(
-          (ref) => ref && typeof ref.focus === "function"
-        );
-        const index = validButtonRefs.findIndex(
-          (ref) => ref === document.activeElement
-        );
-
-        if (event.key === "ArrowLeft") {
-          if (index > 0) validButtonRefs[index - 1].focus();
-        } else if (event.key === "ArrowRight") {
-          if (index < validButtonRefs.length - 1)
-            validButtonRefs[index + 1].focus();
-        } else if (event.key === "ArrowUp") {
-          // Handle focus for moving up if needed
-        } else if (event.key === "ArrowDown") {
-          // Handle focus for moving down if needed
-        } else if (event.key === "Escape") {
-          // Added Escape key for closing the menu
-          setIsExpanded(false);
-          setShowHamburger(true);
-        }
-      } else {
-        if (event.key === "ArrowLeft") {
-          setIsExpanded(true);
-          setShowHamburger(false);
-        } else if (event.key === "ArrowRight") {
-          setIsExpanded(false);
-          setShowHamburger(true);
-        } else if (event.key === "Backspace") {
-          setIsExpanded(!isExpanded());
-          setShowHamburger(!showHamburger());
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    onCleanup(() => {
-      window.removeEventListener("keydown", handleKeyDown);
-    });
-  });
-
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
-      }}
-    >
+    <>
       {/* Main Search Interface */}
-      <Column style={{ ...ColumnStyles, zIndex: 1 }}>
-        <Row style={RowStyles}>
+      <Column style={{ ...ColumnStyles }}>
+        <Column style={{ gap: 500, height: 100 }}>
+          <Row style={{ gap: 20, height: 80 }}>
+            <Button
+              style={{
+                width: 300,
+                height: 80,
+                color: "0x071423ff",
+                // x: 700,
+              }}
+              autofocus
+              onEnter={() => navigate("/poster")}
+            >
+              Home
+            </Button>
+            <Button
+              style={{
+                width: 300,
+                height: 80,
+                color: "0x071423ff",
+                // x: 700,
+              }}
+              onEnter={() => navigate("/movies")}
+            >
+              Movies
+            </Button>
+            <Button
+              style={{
+                width: 300,
+                height: 80,
+                color: "0x071423ff",
+                // x: 700,
+              }}
+              onEnter={() => navigate("/tv")}
+            >
+              TV
+            </Button>
+          </Row>
+        </Column>
+        <Row style={{ ...RowStyles, marginTop: 170 }}>
           <SearchTextBox style={{ width: 400 }}>{typedText()}</SearchTextBox>
         </Row>
         <Row autofocus style={RowStyles}>
@@ -348,48 +335,7 @@ const Search = ({ onSearch }) => {
           </SpaceBar>
         </Row>
       </Column>
-
-      {/* Overlaying ButtonsPage */}
-      {isExpanded() && (
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: 2,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-          }}
-        >
-          <ButtonsPage />
-        </div>
-      )}
-
-      {/* Hamburger Button */}
-      {!isExpanded() && showHamburger() && (
-        <Button
-          onEnter={() => {
-            setIsExpanded(true);
-            setShowHamburger(false);
-          }}
-          style={{
-            width: 50,
-            height: 50,
-            backgroundColor: "#444",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "absolute",
-            top: 10,
-            left: 10,
-            zIndex: 3,
-          }}
-        >
-          <Text>☰</Text> {/* Hamburger Icon */}
-        </Button>
-      )}
-    </div>
+    </>
   );
 };
 

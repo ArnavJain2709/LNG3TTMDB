@@ -10,6 +10,7 @@ import {
   Row,
   Column,
   tileStyles,
+  Button,
 } from "@lightningjs/solid-ui";
 
 const SearchResults = () => {
@@ -39,9 +40,10 @@ const SearchResults = () => {
     display: "flex",
     flexDirection: "column",
     //alignItems: "center", // Center horizontally
-    justifyContent: "center", // Center vertically
+    //justifyContent: "center", // Center vertically
     height: "100vh", // Full viewport height to center vertically
-    gap: 50, // Space between rows
+    gap: 100, // Space between rows
+    x: 25,
   };
 
   createEffect(async () => {
@@ -69,6 +71,54 @@ const SearchResults = () => {
     <div>
       {typedText ? (
         <Column style={ColumnStyles}>
+          <Row style={{ gap: 20, height: 80 }}>
+            <Button
+              style={{
+                width: 300,
+                height: 80,
+                color: "0x071423ff",
+                // x: 700,
+              }}
+              autofocus
+              onEnter={() => navigate("/poster")}
+            >
+              Home
+            </Button>
+            <Button
+              style={{
+                width: 300,
+                height: 80,
+                color: "0x071423ff",
+                // x: 700,
+              }}
+              onEnter={() => navigate("/movies")}
+            >
+              Movies
+            </Button>
+            <Button
+              style={{
+                width: 300,
+                height: 80,
+                color: "0x071423ff",
+                // x: 700,
+              }}
+              onEnter={() => navigate("/tv")}
+            >
+              TV
+            </Button>
+            <Button
+              style={{
+                width: 300,
+                height: 80,
+                color: "0x071423ff",
+                marginLeft: 835,
+                // x: 700,
+              }}
+              onEnter={() => navigate("/search")}
+            >
+              <Text>🔍</Text>
+            </Button>
+          </Row>
           <Text skipFocus style={{ fontSize: "50" }}>
             Search results for: {typedText}
           </Text>
@@ -101,13 +151,19 @@ const SearchResults = () => {
                 }}
                 // progressBar={{ progress: 0.5 }}
                 tone="brand"
-                topLeft={<Badge title="HD" tone="brand" />}
-                topRight={<Label width={75} title="Label" mountX={0.5} />}
+                topRight={
+                  <Label
+                    width={75}
+                    title={"⭐ " + Math.round(aResult.vote_average / 2)}
+                    mountX={0.5}
+                    tone={"inverse"}
+                  />
+                }
                 //inset={<Metadata title={aMovie.title} tone="brand" />}
                 onEnter={() =>
                   handleTileClick(
                     aResult,
-                    "movie"
+                    aResult.media_type === "movie" ? "movie" : "tv"
                     //aResult.media_type === "movie" ? "movie" : "tv"
                   )
                 } // Pass data on click
